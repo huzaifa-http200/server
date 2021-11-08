@@ -29,16 +29,18 @@ var favoriteRouter = require('./routes/favoriteRouter');
 var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
 var uploadRouter = require('./routes/uploadRouter');
+var paymentRouter = require('./routes/paymentRouter');
 
 var app = express();
 // Serving through secure traffic only.
 app.all('*', (req, res, next) => {
-    if (req.secure) {
-        return next();
-    }
-    else {
-        res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
-    }
+    return next();
+    // if (req.secure) {
+    //     return next();
+    // }
+    // else {
+        // res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
+    
 });
 
 // view engine setup
@@ -58,6 +60,7 @@ app.use(passport.initialize());
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/dishes', dishRouter);
+app.use('/payments', paymentRouter);
 app.use('/favorites', favoriteRouter);
 app.use('/promotions', promoRouter);
 app.use('/leaders', leaderRouter);
